@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  devise_for :users
   get 'new'         => 'post#new'       # 글 작성 페이지
   post 'create'     => 'post#create'    # 글 작성
   get 'destroy/:id' => 'post#destroy'   # 글 삭제

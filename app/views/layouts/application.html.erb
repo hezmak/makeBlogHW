@@ -36,8 +36,25 @@
     
     <ul class="nav navbar-nav navbar-right">
       <a href="/new" style="float: left; margin-right: 50px;" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;글작성 하기</a>
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> 회원 가입</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> 로그인</a></li>
+      <% if user_signed_in? %>
+          <li>
+            <%= link_to '#' do %>
+              <strong><%= current_user.email %></strong> 님 환영합니다.
+            <% end %>
+            </li>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete do %>
+              <span class="glyphicon glyphicon-log-out"></span> 로그아웃
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to new_user_registration_path do %><span class="glyphicon glyphicon-user"></span> 회원 가입<% end %>
+            </li>
+          <li>
+            <%= link_to new_user_session_path do %><span class="glyphicon glyphicon-log-in"></span> 로그인<% end %>
+          </li>
+        <% end %>
     </ul>
   </div>
 </nav>

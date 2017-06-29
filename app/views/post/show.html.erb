@@ -8,8 +8,16 @@
 <div class="form-group row">
     <textarea class="form-control col-md-12" id="frmContent" name="content" placeholder="내용을 입력해 주세요." rows="15" readonly><%= @showPost.content %></textarea>
 </div>
+
+<% if @showPost.avatar.exists? %>
+    <div class="row" style="margin: 30px;">
+        <img src="<%= @showPost.avatar.url %>" class ="col-md-12 text-center">
+    </div>
+<% end %>
+
 <div class="form-group row">
     <div class="col-md-2">
+        
         <a href="/" class="btn btn-default">목록으로 돌아가기</a>
     </div>
 </div>
@@ -22,12 +30,13 @@
 <% else %>
     <% @showPost.comments.each do |comment| %>
         <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-9">
                 <p>
                     <strong id="comment<%= comment.id %>"><%= comment.content %></strong>
                 </p>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
+                <p><%= comment.user.email %></p>
                 <%= link_to '', '', class: "edit glyphicon glyphicon-pencil", data: { commentid: comment.id } %>&nbsp;
                 <%= link_to '', "/comment/destroy/#{comment.id}", method: :delete, class: "glyphicon glyphicon-remove", data: { confirm: '정말 삭제하시겠습니까?' } %>
             </div>

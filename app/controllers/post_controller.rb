@@ -1,4 +1,7 @@
 class PostController < ApplicationController
+  before_action :authenticate_user!, except: [:index] #authenth...로그인을 했는지 판별해주는 것. before...는 auth를 먼저 실행시켜 주는 것이다.
+
+
   def new
   end
 
@@ -6,9 +9,13 @@ class PostController < ApplicationController
     newPost = Post.new
     newPost.title = params[:title]
     newPost.content = params[:content]
+    newPost.user = current_user
+    if params[:avatar]
+      newPost.avatar = params[:avatar]
+    end
     newPost.save
     
-    # newPost = Post.create(title: params[:title], content: params[:content])
+    # newPost = Post.create(title: paramrs[:title], content: params[:content])
     
     # redirect_to '/'
     redirect_to "/show/#{newPost.id}"
